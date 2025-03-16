@@ -22,6 +22,8 @@ func main() {
 	filePath = strings.TrimSpace(filePath)
 	filePath = filepath.Clean(filePath)
 
+	fmt.Println("read pdf function firing forom here \n")
+	//services.readPdf(filePath)
 	// Get absolute path
 	absPath, err := filepath.Abs(filePath)
 	if err != nil {
@@ -36,5 +38,5 @@ func main() {
 	fmt.Printf("File found at %s\n", absPath)
 
 	// Convert PDF to Word
-	services.ConvertFormattedPDFToWord(absPath)
+	services.ConvertPDFToWordWithPython(absPath)
 }

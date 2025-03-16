@@ -7,4 +7,7 @@ require (
 	github.com/unidoc/unioffice v1.39.0
 )
 
-require github.com/richardlehane/msoleps v1.0.4 // indirect
+require (
+	github.com/go-python/cpy3 v0.2.0 // indirect
+	github.com/richardlehane/msoleps v1.0.4 // indirect
+)
