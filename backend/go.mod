@@ -1,4 +1,4 @@
-module pdf2word
+module backend
 
 go 1.24.1
 
@@ -9,5 +9,6 @@ require (
 
 require (
 	github.com/go-python/cpy3 v0.2.0 // indirect
+	github.com/gorilla/mux v1.8.1 // indirect
 	github.com/richardlehane/msoleps v1.0.4 // indirect
 )
