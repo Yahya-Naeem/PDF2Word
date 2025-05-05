@@ -1,42 +1,22 @@
 package main
 
 import (
-	"bufio"
+	"backend/handlers"
 	"fmt"
 	"log"
-	"os"
-	"path/filepath"
-	"pdf2word/services"
-	"strings" // Added for TrimSpace
+	"net/http"
+
+	"github.com/gorilla/mux"
 )
 
 func main() {
-	fmt.Println("Enter the file path to be converted:")
-	reader := bufio.NewReader(os.Stdin)
-	filePath, err := reader.ReadString('\n')
-	if err != nil {
-		log.Fatalf("Error reading file path: %v", err)
-	}
+	r := mux.NewRouter()
 
-	// Trim whitespace and clean file path
-	filePath = strings.TrimSpace(filePath)
-	filePath = filepath.Clean(filePath)
+	// Register routes
+	r.HandleFunc("/upload", handlers.UploadFileHandler).Methods("POST")
+	r.HandleFunc("/download/{fileName}", handlers.DownloadFileHandler).Methods("GET") // ✅ Fixed route
 
-	fmt.Println("read pdf function firing forom here \n")
-	//services.readPdf(filePath)
-	// Get absolute path
-	absPath, err := filepath.Abs(filePath)
-	if err != nil {
-		log.Fatalf("Error getting absolute file path: %v", err)
-	}
-
-	// Check if the file exists
-	if _, err := os.Stat(absPath); os.IsNotExist(err) {
-		log.Fatalf("File not found: %s", absPath)
-	}
-
-	fmt.Printf("File found at %s\n", absPath)
-
-	// Convert PDF to Word
-	services.ConvertPDFToWordWithPython(absPath)
+	// Start server
+	fmt.Println("✅ Server running at http://localhost:8080")
+	log.Fatal(http.ListenAndServe(":8080", r))
 }
